@@ -22,9 +22,9 @@ def binary_search(arr, target):
         if low == high:
             break
         if target > arr[middle]:
-            low = middle
+            low = middle + 1
         if target < arr[middle]:
-            high = middle
+            high = middle - 1
     return -1 # not found
 
 
@@ -41,6 +41,6 @@ def binary_search_recursive(arr, target, low, high):
     if low == high:
         return -1
     if target > arr[middle]:
-        return binary_search_recursive(arr, target, middle, high)
+        return binary_search_recursive(arr, target, middle + 1, high)
     if target < arr[middle]:
-        return binary_search_recursive(arr, target, low, middle)
+        return binary_search_recursive(arr, target, low, middle - 1)
