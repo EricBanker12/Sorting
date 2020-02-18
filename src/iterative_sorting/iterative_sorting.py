@@ -18,7 +18,7 @@ def selection_sort( arr ):
 
 
 # TO-DO:  implement the Bubble Sort function below
-def bubble_sort( arr ):
+def bubble_sort_recursive( arr ):
     # loop through pairs
     for i in range(0, len(arr) - 1):
         # swap pairs if b < a
@@ -28,9 +28,47 @@ def bubble_sort( arr ):
             arr[i] = arr[j]
             arr[j] = temp
             # repeat until sorted/no-swaps
-            return bubble_sort(arr)
+            return bubble_sort_recursive(arr)
     return arr
 
+def bubble_sort( arr ):
+    while True:
+        swapped = False
+        # loop through pairs
+        for i in range(0, len(arr) - 1):
+            # swap pairs if b < a
+            j = i + 1
+            if arr[j] < arr[i]:
+                temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+                swapped = True
+        if not swapped:
+            return arr
+
+import cProfile
+
+def test_bubble_sort():
+    # worse case scenario
+    my_arr = [*range(40)]
+    my_arr.reverse()
+    my_arr_2 = my_arr.copy()
+
+    # recursive bubble_sort
+    pr = cProfile.Profile()
+    pr.enable()
+    bubble_sort_recursive(my_arr)
+    pr.disable()
+    pr.print_stats()
+
+    # while loop bubble_sort
+    pr = cProfile.Profile()
+    pr.enable()
+    bubble_sort(my_arr_2)
+    pr.disable()
+    pr.print_stats()
+
+# test_bubble_sort()
 
 # STRETCH: implement the Count Sort function below
 def count_sort( arr, maximum=-1 ):
